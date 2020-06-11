@@ -1,0 +1,6 @@
+main: net.smokesignals.adminevents.AdminEvents
+name: Admin-Events
+version: 1.0
+commands:
+  event:
+    description: the event command
