@@ -28,8 +28,13 @@ public class AdminEvents extends JavaPlugin implements Listener {
 
     @EventHandler
     public void player_leavith(PlayerQuitEvent event) {
-        if (playersInEvent.contains(event.getPlayer())) {
-            current_event.OnPlayerLeave(event.getPlayer());
+        try {
+            if (playersInEvent.contains(event.getPlayer())) {
+                current_event.OnPlayerLeave(event.getPlayer());
+            }
+        } catch (Exception e) {
+            System.out.println("Biggen badden");
+            System.out.println(e.toString());
         }
     }
 }

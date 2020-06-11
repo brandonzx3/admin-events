@@ -1,5 +1,6 @@
 net\smokesignals\adminevents\events\SpaceTimeFreeze.class
 net\smokesignals\adminevents\events\Status.class
+net\smokesignals\adminevents\events\Fishing$1.class
 net\smokesignals\adminevents\events\Fishing.class
 net\smokesignals\adminevents\events\MurderMysteryCountdown.class
 net\smokesignals\adminevents\events\Test.class

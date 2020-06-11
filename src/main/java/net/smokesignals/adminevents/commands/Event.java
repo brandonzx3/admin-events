@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
 import net.smokesignals.adminevents.AdminEvents;
+import net.smokesignals.adminevents.events.Fishing;
 import net.smokesignals.adminevents.events.MurderMystery;
 import net.smokesignals.adminevents.events.Test;
 
@@ -24,7 +25,7 @@ public class Event implements CommandExecutor {
             if (args.length != 0) {
                 switch (args[0]) {
                     default:
-                        sender.sendMessage("you did bad");
+                        sender.sendMessage("You did a bad.");
                         break;
 
                     case "help":
@@ -46,7 +47,7 @@ public class Event implements CommandExecutor {
                                 if (!AdminEvents.eventIsRunning) {
                                     switch (args[1]) {
                                         default:
-                                            sender.sendMessage(ChatColor.RED + "this is not an event DIE");
+                                            sender.sendMessage(ChatColor.RED + "This is not an event, please DIE.");
                                             return true;
                                         case "test":
                                             Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD
@@ -55,17 +56,21 @@ public class Event implements CommandExecutor {
                                             AdminEvents.INSTANCE.current_event = new Test(AdminEvents.INSTANCE);
                                             break;
                                         case "murder":
-                                            AdminEvents.eventIsRunning = true;
-                                            AdminEvents.INSTANCE.current_event = new MurderMystery();
+                                        AdminEvents.eventIsRunning = true;
+                                        AdminEvents.INSTANCE.current_event = new MurderMystery();
+                                        break;
+                                        case "fishing":
+                                        AdminEvents.eventIsRunning = true;
+                                        AdminEvents.INSTANCE.current_event = new Fishing();
                                     }
                                 } else {
-                                    sender.sendMessage("An event is already running");
+                                    sender.sendMessage("An event is already running!");
                                 }
                             } else {
-                                sender.sendMessage(ChatColor.RED + "type an event idiot");
+                                sender.sendMessage(ChatColor.RED + "Type an event you idiot.");
                             }
                         } else {
-                            sender.sendMessage(ChatColor.RED + "you can't use this command");
+                            sender.sendMessage(ChatColor.RED + "You can't use this command!");
                         }
                         break;
 
@@ -77,7 +82,7 @@ public class Event implements CommandExecutor {
                                 adminEvents.current_event = null;
                             }
                         } else {
-                            sender.sendMessage(ChatColor.RED + "you can't use this command");
+                            sender.sendMessage(ChatColor.RED + "You can't use this command!");
                         }
                         break;
                     
@@ -86,13 +91,13 @@ public class Event implements CommandExecutor {
                             adminEvents.current_event.OnPlayerLeave((Player)sender);
                             adminEvents.playersInEvent.remove(sender);
                         } else {
-                            sender.sendMessage(ChatColor.RED + "you are not in an event");
+                            sender.sendMessage(ChatColor.RED + "You are not in an event!");
                         }
                         break;
                     }
                 }
             } else {
-                sender.sendMessage("you did a bad");
+                sender.sendMessage("You did a bad.");
             }
         }
         return false;
