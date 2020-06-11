@@ -53,14 +53,21 @@ public class Fishing implements Listener, IEvent {
     public void ExecuteDie() {
         Integer highestScore = 0;
         Player highestPlayer = null;
-        for(Player player : playerData.keySet()) {
-            Integer score = playerData.get(player);
-            if(score > highestScore) {
-                highestScore = score;
-                highestPlayer = player;
+        if(highestPlayer != null) {
+            for(Player player : playerData.keySet()) {
+                Integer score = playerData.get(player);
+                if(score > highestScore) {
+                    highestScore = score;
+                    highestPlayer = player;
+                }
             }
+            for(Player players : players) {
+                players.sendTitle(ChatColor.RED + "" + ChatColor.BOLD + highestPlayer.getDisplayName() + " Wins", "", 0, 2 * 20, 1 * 20);
+            }
+            Bukkit.broadcastMessage(highestPlayer.getDisplayName() + " won the fishing event with" + " " + highestScore + " points!");
+        } else {
+            Bukkit.broadcastMessage("No one won the fishing event.");
         }
-        Bukkit.broadcastMessage(highestPlayer.getDisplayName() + " won the fishing event with" + " " + highestScore + " points!");
         HandlerList.unregisterAll(this);
         Fishing self = this;
         AdminEvents.INSTANCE.getServer().getScheduler().runTaskLater(AdminEvents.INSTANCE, new Runnable() {
@@ -89,6 +96,14 @@ public class Fishing implements Listener, IEvent {
                 if(item.getItemStack().getType() == Material.SALMON) {
                     score(player, 2, Material.SALMON);
                 }
+
+                if(item.getItemStack().getType() == Material.PUFFERFISH) {
+                    score(player, 5, Material.PUFFERFISH);
+                }
+
+                if(item.getItemStack().getType() == Material.TROPICAL_FISH) {
+                    score(player, 10, Material.TROPICAL_FISH);
+                }
             }
         }
     }
@@ -97,6 +112,10 @@ public class Fishing implements Listener, IEvent {
         Integer score = playerData.get(player);
         score += number;
         playerData.put(player, score);
-        player.sendMessage("You cought a " + mat.toString() + " +" + number.toString() + " points!");
+        if(mat == Material.TROPICAL_FISH) {
+            player.sendMessage("You cought a " + "TROPICAL FISH" + " +" + number.toString() + " points!");
+        } else {
+            player.sendMessage("You cought a " + mat.toString() + " +" + number.toString() + " points!");
+        }
     }
 }
