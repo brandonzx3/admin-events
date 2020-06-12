@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import net.md_5.bungee.api.ChatColor;
 import net.smokesignals.adminevents.AdminEvents;
 import net.smokesignals.adminevents.events.Fishing;
+import net.smokesignals.adminevents.events.Hunting;
 import net.smokesignals.adminevents.events.MurderMystery;
 import net.smokesignals.adminevents.events.Test;
 
@@ -56,12 +57,17 @@ public class Event implements CommandExecutor {
                                             AdminEvents.INSTANCE.current_event = new Test(AdminEvents.INSTANCE);
                                             break;
                                         case "murder":
-                                        AdminEvents.eventIsRunning = true;
-                                        AdminEvents.INSTANCE.current_event = new MurderMystery();
-                                        break;
+                                            AdminEvents.eventIsRunning = true;
+                                            AdminEvents.INSTANCE.current_event = new MurderMystery();
+                                            break;
                                         case "fishing":
-                                        AdminEvents.eventIsRunning = true;
-                                        AdminEvents.INSTANCE.current_event = new Fishing();
+                                            AdminEvents.eventIsRunning = true;
+                                            AdminEvents.INSTANCE.current_event = new Fishing();
+                                            break;
+                                        case "hunting":
+                                            AdminEvents.eventIsRunning = true;
+                                            AdminEvents.INSTANCE.current_event = new Hunting();
+                                            break;
                                     }
                                 } else {
                                     sender.sendMessage("An event is already running!");

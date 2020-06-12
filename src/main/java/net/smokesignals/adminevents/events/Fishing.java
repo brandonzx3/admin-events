@@ -2,7 +2,6 @@ package net.smokesignals.adminevents.events;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Handler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -12,10 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerFishEvent.State;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import net.md_5.bungee.api.ChatColor;
 import net.smokesignals.adminevents.AdminEvents;
@@ -27,7 +23,7 @@ public class Fishing implements Listener, IEvent {
     HashMap<Player, Integer> playerData = new HashMap<>();
 
     public Fishing() {
-        Bukkit.broadcastMessage("a Fishing Event has started");
+        Bukkit.broadcastMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "A fishing Event has started");
         AdminEvents.INSTANCE.getServer().getPluginManager().registerEvents(this, AdminEvents.INSTANCE);
     }
 
@@ -53,21 +49,24 @@ public class Fishing implements Listener, IEvent {
     public void ExecuteDie() {
         Integer highestScore = 0;
         Player highestPlayer = null;
-        if(highestPlayer != null) {
-            for(Player player : playerData.keySet()) {
-                Integer score = playerData.get(player);
-                if(score > highestScore) {
-                    highestScore = score;
-                    highestPlayer = player;
-                }
+        for(Player player : playerData.keySet()) {
+            Integer score = playerData.get(player);
+            if(score > highestScore) {
+                highestScore = score;
+                highestPlayer = player;
             }
+        }
+
+        if(highestScore != 0) {
             for(Player players : players) {
                 players.sendTitle(ChatColor.RED + "" + ChatColor.BOLD + highestPlayer.getDisplayName() + " Wins", "", 0, 2 * 20, 1 * 20);
+                players.playSound(players.getLocation(), "minecraft:ui.toast.challenge_complete", 100f, 1f);
             }
             Bukkit.broadcastMessage(highestPlayer.getDisplayName() + " won the fishing event with" + " " + highestScore + " points!");
         } else {
-            Bukkit.broadcastMessage("No one won the fishing event.");
+            Bukkit.broadcastMessage("no one one the fishing event");
         }
+
         HandlerList.unregisterAll(this);
         Fishing self = this;
         AdminEvents.INSTANCE.getServer().getScheduler().runTaskLater(AdminEvents.INSTANCE, new Runnable() {
@@ -113,9 +112,9 @@ public class Fishing implements Listener, IEvent {
         score += number;
         playerData.put(player, score);
         if(mat == Material.TROPICAL_FISH) {
-            player.sendMessage("You cought a " + "TROPICAL FISH" + " +" + number.toString() + " points!");
+            player.sendMessage("You cought a " + "tropical fish" + " +" + number.toString() + " points!");
         } else {
-            player.sendMessage("You cought a " + mat.toString() + " +" + number.toString() + " points!");
+            player.sendMessage("You cought a " + mat.toString().toLowerCase() + " +" + number.toString() + " points!");
         }
     }
 }

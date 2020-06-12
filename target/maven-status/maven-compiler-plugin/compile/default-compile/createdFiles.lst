@@ -1,11 +1,13 @@
-net\smokesignals\adminevents\events\SpaceTimeFreeze.class
+net\smokesignals\adminevents\events\Hunting$1.class
 net\smokesignals\adminevents\events\Status.class
 net\smokesignals\adminevents\events\Fishing$1.class
 net\smokesignals\adminevents\events\Fishing.class
-net\smokesignals\adminevents\events\MurderMysteryCountdown.class
 net\smokesignals\adminevents\events\Test.class
-net\smokesignals\adminevents\AdminEvents.class
-net\smokesignals\adminevents\commands\Event.class
 net\smokesignals\adminevents\events\IEvent.class
 net\smokesignals\adminevents\events\MurderMystery.class
 net\smokesignals\adminevents\events\MurderMystery$1.class
+net\smokesignals\adminevents\events\SpaceTimeFreeze.class
+net\smokesignals\adminevents\events\MurderMysteryCountdown.class
+net\smokesignals\adminevents\AdminEvents.class
+net\smokesignals\adminevents\commands\Event.class
+net\smokesignals\adminevents\events\Hunting.class
