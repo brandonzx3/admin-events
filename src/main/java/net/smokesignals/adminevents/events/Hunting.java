@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -11,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.inventory.ItemStack;
 
 import net.md_5.bungee.api.ChatColor;
 import net.smokesignals.adminevents.AdminEvents;
@@ -56,8 +58,9 @@ public class Hunting implements Listener, IEvent {
                         players.playSound(players.getLocation(), "minecraft:ui.toast.challenge_complete", 100f, 1f);
                     }
                     Bukkit.broadcastMessage(highestPlayer.getDisplayName() + " won the hunting event with" + " " + highestScore + " points!");
+                    highestPlayer.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 64));
                 } else {
-                    Bukkit.broadcastMessage("no one one the hunting event");
+                    Bukkit.broadcastMessage("no one won the hunting event");
                 }
             }
         }

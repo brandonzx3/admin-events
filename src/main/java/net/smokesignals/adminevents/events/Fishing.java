@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,6 +13,10 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerFishEvent.State;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import net.md_5.bungee.api.ChatColor;
 import net.smokesignals.adminevents.AdminEvents;
@@ -63,8 +68,13 @@ public class Fishing implements Listener, IEvent {
                 players.playSound(players.getLocation(), "minecraft:ui.toast.challenge_complete", 100f, 1f);
             }
             Bukkit.broadcastMessage(highestPlayer.getDisplayName() + " won the fishing event with" + " " + highestScore + " points!");
+            ItemStack book = new ItemStack(Material.ENCHANTED_BOOK);
+            EnchantmentStorageMeta bookMeta = (EnchantmentStorageMeta)book.getItemMeta();
+            bookMeta.addStoredEnchant(Enchantment.MENDING, 1, false);
+            book.setItemMeta(bookMeta);
+            highestPlayer.getInventory().addItem(book);
         } else {
-            Bukkit.broadcastMessage("no one one the fishing event");
+            Bukkit.broadcastMessage("no one won the fishing event");
         }
 
         HandlerList.unregisterAll(this);

@@ -30,7 +30,9 @@ public class Event implements CommandExecutor {
                         break;
 
                     case "help":
-                        sender.sendMessage("L");
+                        sender.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "---Event help---");
+                        sender.sendMessage(ChatColor.GOLD + "/event join");
+                        sender.sendMessage(ChatColor.GOLD + "/event leave");
                         break;
 
                     case "join":
@@ -93,9 +95,13 @@ public class Event implements CommandExecutor {
                         break;
                     
                     case "leave": {
-                        if(adminEvents.playersInEvent.contains(sender)) {
-                            adminEvents.current_event.OnPlayerLeave((Player)sender);
-                            adminEvents.playersInEvent.remove(sender);
+                        if(AdminEvents.eventIsRunning) {
+                            if(adminEvents.playersInEvent.contains(sender)) {
+                                adminEvents.current_event.OnPlayerLeave((Player)sender);
+                                adminEvents.playersInEvent.remove(sender);
+                            } else {
+                                sender.sendMessage(ChatColor.RED + "You are not in an event!");
+                            }
                         } else {
                             sender.sendMessage(ChatColor.RED + "You are not in an event!");
                         }
