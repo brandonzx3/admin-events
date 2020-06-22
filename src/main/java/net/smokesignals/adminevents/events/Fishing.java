@@ -2,6 +2,7 @@ package net.smokesignals.adminevents.events;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -17,7 +18,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
 
+import me.ishift.rushboard.util.ScoreboardBuilder;
 import net.md_5.bungee.api.ChatColor;
 import net.smokesignals.adminevents.AdminEvents;
 
@@ -39,7 +43,7 @@ public class Fishing implements Listener, IEvent {
         for(Player players : players) {
             players.sendMessage(ChatColor.GOLD + player.getDisplayName() + " has joined the event.");
         }
-
+        AdminEvents.renderCommonScorboard(playerData, players);
     }
 
     @Override
@@ -48,6 +52,9 @@ public class Fishing implements Listener, IEvent {
         for(Player players : players) {
             players.sendMessage(ChatColor.GOLD + player.getDisplayName() + " has left the event.");
         }
+        player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+        playerData.remove(player);
+        AdminEvents.renderCommonScorboard(playerData, players);
     }
 
     @Override
@@ -126,5 +133,6 @@ public class Fishing implements Listener, IEvent {
         } else {
             player.sendMessage("You cought a " + mat.toString().toLowerCase() + " +" + number.toString() + " points!");
         }
+        AdminEvents.renderCommonScorboard(playerData, players);
     }
 }

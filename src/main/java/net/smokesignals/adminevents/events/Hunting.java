@@ -2,6 +2,7 @@ package net.smokesignals.adminevents.events;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -13,7 +14,9 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scoreboard.Scoreboard;
 
+import me.ishift.rushboard.util.ScoreboardBuilder;
 import net.md_5.bungee.api.ChatColor;
 import net.smokesignals.adminevents.AdminEvents;
 
@@ -33,6 +36,7 @@ public class Hunting implements Listener, IEvent {
             players.sendMessage(ChatColor.GOLD + player.getDisplayName() + " has joined the event");
         }
         playerData.put(player, 0);
+        AdminEvents.renderCommonScorboard(playerData, players);
     }
 
     @Override
@@ -41,6 +45,8 @@ public class Hunting implements Listener, IEvent {
         for(Player players : players) {
             players.sendMessage(ChatColor.GOLD + player.getDisplayName() + " has left the event.");
         }
+        player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+        AdminEvents.renderCommonScorboard(playerData, players);
     }
 
     @Override
@@ -107,5 +113,6 @@ public class Hunting implements Listener, IEvent {
         score += ammount;
         playerData.put(player, score);
         player.sendMessage("You earned " + ammount.toString() + " points!");
+        AdminEvents.renderCommonScorboard(playerData, players);
     }
 }
